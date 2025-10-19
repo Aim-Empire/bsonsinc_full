@@ -1,7 +1,7 @@
 import { Hero } from "@/components/Hero";
 import { Section } from "@/components/Section";
 import { FeatureCard } from "@/components/FeatureCard";
-import { CTA } from "@/components/CTA";
+import CTA from "@/components/CTA";
 export default function Page() {
   return (<>
     <Hero />
