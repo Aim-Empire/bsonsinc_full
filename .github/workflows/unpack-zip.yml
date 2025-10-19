@@ -1,0 +1,36 @@
+name: Unpack ZIP into repo
+
+on:
+  push:
+    paths:
+      - 'bsonsinc-full-main.zip'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  unpack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install unzip and rsync
+        run: sudo apt-get update && sudo apt-get install -y unzip rsync
+
+      - name: Unzip archive into working dir
+        run: |
+          unzip -o bsonsinc-full-main.zip -d extracted
+          rsync -a extracted/ .
+          rm -rf extracted
+          git rm -f --cached bsonsinc-full-main.zip || true
+
+      - name: Commit & push extracted files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Unpack ZIP into repo" || echo "No changes to commit"
+          git push
+          
