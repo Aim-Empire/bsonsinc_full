@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand: 191 100% 50%;
+  --brand-600: 191 100% 44%;
+  --brand-700: 191 100% 38%;
+  --brand-800: 193 86% 29%;
+  --brand-900: 193 78% 21%;
+  --brand-contrast: 200 22% 7%;
+  --ink: 190 100% 94%;
+}
+
+html, body {
+  @apply bg-black text-zinc-100 antialiased;
+  background-image: radial-gradient(1200px 600px at 10% -10%, rgba(0,209,255,.08), transparent),
+                    radial-gradient(900px 500px at 90% 10%, rgba(0,209,255,.06), transparent);
+}
+
+.button-brand { @apply rounded-2xl px-5 py-3 font-medium; background: hsl(var(--brand)); color: hsl(var(--ink)); }
+.button-ghost { @apply rounded-2xl border px-5 py-3 font-medium border-zinc-800 hover:bg-zinc-900; }
+.prose { --tw-prose-invert-body: 224 224 224; }
