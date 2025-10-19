@@ -1,5 +1,11 @@
-generator client { provider = "prisma-client-js" }
-datasource db { provider = env("DATABASE_PROVIDER") url = env("DATABASE_URL") }
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
 
 model Job {
   id           String   @id @default(cuid())
@@ -12,8 +18,8 @@ model Job {
   salaryMin    Int?
   salaryMax    Int?
   currency     String?
-  description  String
-  requirements String
+  description  String?
+  requirements String?
   benefits     String?
   isActive     Boolean  @default(true)
   createdAt    DateTime @default(now())
@@ -23,30 +29,13 @@ model Job {
 
 model Application {
   id          String   @id @default(cuid())
+  name        String
+  email       String
+  phone       String
+  resumeUrl   String
+  coverLetter String?
+  status      String   @default("pending")
   jobId       String
   job         Job      @relation(fields: [jobId], references: [id])
-  fullName    String
-  email       String
-  phone       String?
-  location    String?
-  linkedin    String?
-  portfolio   String?
-  resumeUrl   String?
-  coverLetter String?
-  status      String   @default("received")
-  createdAt   DateTime @default(now())
-}
-
-model Donation {
-  id          String   @id @default(cuid())
-  name        String?
-  email       String?
-  amount      Int
-  currency    String
-  interval    String
-  message     String?
-  provider    String
-  providerRef String?
-  status      String   @default("initialized")
   createdAt   DateTime @default(now())
 }
